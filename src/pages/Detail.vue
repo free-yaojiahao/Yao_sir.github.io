@@ -28,7 +28,7 @@ const mapZone = (val) => zones.find(z => z.value===val)?.label || val
 
 <style scoped>
 .detail { display: grid; gap: 16px; }
-.back { align-self: start; padding: 8px 12px; border-radius: 8px; border: 1px solid #e7d7a0; background: #fffaf0; color:#5a4a15; cursor: pointer; }
+.back { align-self: start; padding: 8px 12px; border-radius: 8px; border: 1px solid #e7d7a0; background: #fffaf0; color:#5a4a15; cursor: pointer; width: 100%; }
 .carousel { position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,.1); }
 .slide { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
 .dots { position: absolute; left: 0; right: 0; bottom: 8px; display: flex; justify-content: center; gap: 6px; }
@@ -38,7 +38,8 @@ const mapZone = (val) => zones.find(z => z.value===val)?.label || val
 .title { margin-bottom: 8px; color:#3a2f0a; }
 .row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #efdca4; }
 .row:last-child { border-bottom: none; }
-@media (min-width: 768px){ .detail { grid-template-columns: 1.2fr .8fr; align-items: start; } .slide { aspect-ratio: 4/3; } }
+/* 居中单列容器：在较宽屏幕两侧留白 */
+@media (min-width: 1024px){ .detail { max-width: 980px; margin: 0 auto; } }
 </style>
 
 

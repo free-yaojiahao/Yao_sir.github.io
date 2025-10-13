@@ -1,6 +1,7 @@
 <template>
   <div 
     class="carousel"
+    ref="containerEl"
     @mouseenter="pause"
     @mouseleave="resume"
     @touchstart.passive="onTouchStart"
@@ -16,6 +17,8 @@
         <img :src="src" alt="slide" />
       </div>
     </div>
+    <button class="nav left" @click="prev" aria-label="上一张">‹</button>
+    <button class="nav right" @click="next" aria-label="下一张">›</button>
     <div class="dots">
       <button 
         v-for="(src, idx) in images" :key="'dot-'+idx"
@@ -105,6 +108,7 @@ const onTouchStart = (e) => {
   isDragging.value = true
   startX.value = e.touches[0].clientX
   deltaX.value = 0
+  isPaused.value = true
 }
 
 const onTouchMove = (e) => {
@@ -122,6 +126,7 @@ const onMouseDown = (e) => {
   isDragging.value = true
   startX.value = e.clientX
   deltaX.value = 0
+  isPaused.value = true
 }
 const onMouseMove = (e) => {
   if (!mouseActive.value || !isDragging.value) return
@@ -143,6 +148,7 @@ const endDrag = (cancel = false) => {
     }
   }
   deltaX.value = 0
+  isPaused.value = false
 }
 
 const onVisibility = () => {
@@ -173,9 +179,18 @@ onBeforeUnmount(() => {
 .track { display: flex; width: 100%; }
 .slide { min-width: 100%; user-select: none; }
 .slide img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
+.nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 32px; height: 32px; border-radius: 50%; border: none; background: rgba(255,255,255,.85); color: #5a4a15; display: none; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,.15); }
+.nav.left { left: 8px; }
+.nav.right { right: 8px; }
+.carousel:hover .nav { display: flex; }
+.nav:active { transform: translateY(-50%) scale(.96); }
 .dots { position: absolute; left: 0; right: 0; bottom: 8px; display: flex; justify-content: center; gap: 6px; }
 .dot { width: 10px; height: 10px; border-radius: 50%; border: none; background: rgba(255,255,255,.6); cursor: pointer; }
 .dot.active { background: #C89B3C; }
-@media (min-width: 768px){ .slide img { aspect-ratio: 4/3; } }
+/* 保持各端 1:1 比例，与详情页布局一致 */
+/* 触屏设备隐藏箭头，避免占位与 UI 干扰 */
+@media (hover: none), (pointer: coarse){
+  .nav { display: none !important; }
+}
 </style>
 
