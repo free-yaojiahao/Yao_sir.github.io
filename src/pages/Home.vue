@@ -1,5 +1,6 @@
 <template>
   <div class="gold-home">
+    <div class="welcome-title">欢迎进入铭心珠宝（尧水明金店）</div>
     <div class="tabs">
       <button 
         v-for="z in zones" :key="z.value" 
@@ -138,7 +139,51 @@ onUnmounted(() => {
 .title { font-weight: 700; color: #3a2f0a; font-size: .95rem; }
 .weight { color: #7a6a30; font-size: .9rem; }
 .empty { text-align: center; padding: 24px; color: #7a6a30; }
+.welcome-title {
+  margin-bottom: 10px;
+  margin-top: 2px;
+  font-size: 1.16rem;
+  text-align: center;
+  color: #7B430D;
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg,#ffedb3 0%,#ffe6b0 50%,#fff6de 99%);
+  border-radius: 12px;
+  border: 1.5px solid #edce83;
+  box-shadow: 0 2px 10px rgba(160,130,40,0.08) inset,0 2px 8px rgba(200,155,60,0.06);
+  padding: 11px 8px 10px 8px;
+  opacity: 0.98;
+  text-shadow: 0px 2px 10px #fff6de, 0px 1px 2px #e7bb59;
+  position: relative;
+}
+.welcome-title::before,
+.welcome-title::after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 40%;
+  margin: 0 auto 6px auto;
+  border-radius: 1.5px;
+  background: linear-gradient(90deg,#efd684,#ffe6b0 60%,#f3db80 99%);
+}
+.welcome-title::before { margin-bottom:-7px; margin-top: -2px; }
+.welcome-title::after { margin-top:-8px; margin-bottom: 3px; }
 @media (min-width: 768px){ .grid { grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 16px; } }
+@media (max-width: 700px) {
+  .welcome-title {
+    font-size: 1.02rem;
+    padding: 7px 3px 7px 3px;
+    margin-bottom: 7px;
+    margin-top: 1px;
+    letter-spacing: 2px;
+  }
+  .welcome-title::before, .welcome-title::after {
+    height: 2px;
+    width: 38%;
+    margin-bottom: 3px;
+    margin-top: 2px;
+  }
+}
 </style>
 
 
