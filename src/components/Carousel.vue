@@ -14,7 +14,15 @@
   >
     <div class="track" :style="trackStyle">
       <div v-for="(src, idx) in images" :key="idx" class="slide">
-        <img :src="src" alt="slide" @click="openPreview(idx)" style="cursor: zoom-in" />
+        <img v-if="isImage(src)" :src="src" alt="slide" @click="openPreview(idx)" style="cursor: zoom-in" />
+        <video 
+          v-else 
+          :src="src" 
+          controls 
+          :poster="videoPoster(src)"
+          class="carousel-video"
+          @click="toFullscreen($event, src)"
+        />
       </div>
     </div>
     <button class="nav left" @click="prev" aria-label="上一张">‹</button>
@@ -28,8 +36,8 @@
     </div>
     <vue-easy-lightbox
       :visible="previewVisible"
-      :imgs="images"
-      :index="previewIndex"
+      :imgs="images.filter(isImage)"
+      :index="imgPreviewIndex"
       @hide="previewVisible = false"
     />
   </div>
@@ -46,11 +54,36 @@ const props = defineProps({
   loop: { type: Boolean, default: true },
 })
 
+const isImage = (src) => /\.(jpe?g|png|gif|webp|svg)$/i.test(src)
+const isVideo = (src) => /\.(mp4|mov|webm)$/i.test(src)
+
 const previewVisible = ref(false)
 const previewIndex = ref(0)
+// 只计算所有图片在原数组中的下标对应，图片预览才不会错位
+const imgIndexes = computed(() => props.images.map((v,i) => isImage(v)?i:null).filter(v=>v!==null))
+const imgPreviewIndex = computed({
+  get() {
+    const idx = imgIndexes.value.indexOf(previewIndex.value)
+    return idx === -1 ? 0 : idx
+  },
+  set(v) {
+    previewIndex.value = imgIndexes.value[v] ?? 0
+  }
+})
 const openPreview = (idx) => {
-  previewIndex.value = idx
-  previewVisible.value = true
+  // 只允许图片进预览
+  if (isImage(props.images[idx])) {
+    previewIndex.value = idx
+    previewVisible.value = true
+  }
+}
+const videoPoster = (src) => '' // 可根据需求补充视频封面
+const toFullscreen = (e, src) => {
+  // 仅video生效，点击全屏
+  const v = e.target;
+  if (v.requestFullscreen) v.requestFullscreen()
+  else if (v.webkitRequestFullScreen) v.webkitRequestFullScreen()
+  else if (v.msRequestFullscreen) v.msRequestFullscreen()
 }
 
 const currentIndex = ref(0)
@@ -192,7 +225,18 @@ onBeforeUnmount(() => {
 .carousel { position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,.1); }
 .track { display: flex; width: 100%; }
 .slide { min-width: 100%; user-select: none; }
-.slide img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
+.slide img, .carousel-video {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  display: block;
+  background: #f5ecc9;
+  border-radius: 0;
+}
+.carousel-video {
+  max-height: 100vw;
+  background: #e6e3db;
+}
 .nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 32px; height: 32px; border-radius: 50%; border: none; background: rgba(255,255,255,.85); color: #5a4a15; display: none; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,.15); }
 .nav.left { left: 8px; }
 .nav.right { right: 8px; }
