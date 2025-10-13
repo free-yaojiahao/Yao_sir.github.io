@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-    <button class="back" @click="$router.back()">返回</button>
+    <button class="back" @click="goBack">返回</button>
     <Carousel :images="item.images" :autoplay="true" :interval="3000" />
     <div class="info">
       <h2 class="title">{{ item.title }}</h2>
@@ -14,15 +14,21 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import Carousel from '../components/Carousel.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter() // 新增
 const item = ref({ title: '', weight: 0, images: [], category: '', zone: '' })
 const categoriesRef = ref([])
 const zonesRef = ref([])
 
 const mapLabel = (val) => categoriesRef.value.find(c => c.value===val)?.label || val
 const mapZone = (val) => zonesRef.value.find(z => z.value===val)?.label || val
+
+const goBack = () => {
+  router.replace({ name: 'home' })
+  sessionStorage.removeItem('gold_scroll_top')
+}
 
 onMounted(async () => {
   const res = await fetch('/gold-data.json', { cache: 'no-store' })

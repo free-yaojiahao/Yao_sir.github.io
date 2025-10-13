@@ -61,7 +61,15 @@ const filtered = computed(() => {
 })
 const paged = computed(() => filtered.value.slice(0, page.value * PER_PAGE))
 
+const SCROLL_KEY = 'gold_scroll_top'
+
+const restoreScroll = () => {
+  const last = parseInt(sessionStorage.getItem(SCROLL_KEY) || '0', 10)
+  window.scrollTo({ top: last, behavior: 'auto' })
+}
+
 const goDetail = (item) => {
+  sessionStorage.setItem(SCROLL_KEY, String(window.scrollY))
   router.push({ name: 'detail', params: { id: item.id } })
 }
 
@@ -72,6 +80,9 @@ function onScroll() {
   }
 }
 
+const ZONE_KEY = 'gold_zone'
+const CAT_KEY = 'gold_cat'
+
 onMounted(async () => {
   const res = await fetch('/gold-data.json', { cache: 'no-store' })
   const data = await res.json()
@@ -79,15 +90,25 @@ onMounted(async () => {
   categories.value = [{ label: '所有', value: 'all' }, ...(data.categories || [])]
   const raw = data.goldItems || []
   items.value = raw.map((it, idx) => ({ id: it.id ?? (idx + 1), ...it }))
-  zone.value = zones.value[0]?.value || ''
-  category.value = 'all'
+
+  // 恢复zone和category选择
+  const lastZone = sessionStorage.getItem(ZONE_KEY) || zones.value[0]?.value || ''
+  const lastCat = sessionStorage.getItem(CAT_KEY) || 'all'
+  zone.value = lastZone
+  category.value = lastCat
+
   window.addEventListener('scroll', onScroll)
+  // 页面加载完恢复滚动
+  setTimeout(restoreScroll, 40)
 })
 
 // 切换区/类别时重置分页
 function resetPage() { page.value = 1 }
 
 watch([zone, category], resetPage)
+
+watch(zone, z => sessionStorage.setItem(ZONE_KEY, z))
+watch(category, c => sessionStorage.setItem(CAT_KEY,c))
 
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
