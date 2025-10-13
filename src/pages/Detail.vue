@@ -1,15 +1,7 @@
 <template>
   <div class="detail">
     <button class="back" @click="$router.back()">返回</button>
-    <div class="carousel">
-      <img :src="current" class="slide" />
-      <div class="dots">
-        <button 
-          v-for="(img,idx) in item.images" :key="idx"
-          :class="['dot',{active: idx===index}]"
-          @click="index=idx" />
-      </div>
-    </div>
+    <Carousel :images="item.images" :autoplay="true" :interval="3000" />
     <div class="info">
       <h2 class="title">{{ item.title }}</h2>
       <div class="row"><span>克重</span><b>{{ item.weight }} 克</b></div>
@@ -21,14 +13,14 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import Carousel from '../components/Carousel.vue'
 import { useRoute } from 'vue-router'
 import { goldItems, categories, zones } from '../data/gold'
 
 const route = useRoute()
 const item = goldItems.find(i => String(i.id) === String(route.params.id)) || goldItems[0]
 
-const index = ref(0)
-const current = computed(() => item.images[index.value])
+// 使用通用 Carousel，详情页不再需要本地 index/current 逻辑
 
 const mapLabel = (val) => categories.find(c => c.value===val)?.label || val
 const mapZone = (val) => zones.find(z => z.value===val)?.label || val
