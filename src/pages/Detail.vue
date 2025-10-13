@@ -12,18 +12,26 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import Carousel from '../components/Carousel.vue'
 import { useRoute } from 'vue-router'
-import { goldItems, categories, zones } from '../data/gold'
 
 const route = useRoute()
-const item = goldItems.find(i => String(i.id) === String(route.params.id)) || goldItems[0]
+const item = ref({ title: '', weight: 0, images: [], category: '', zone: '' })
+const categoriesRef = ref([])
+const zonesRef = ref([])
 
-// 使用通用 Carousel，详情页不再需要本地 index/current 逻辑
+const mapLabel = (val) => categoriesRef.value.find(c => c.value===val)?.label || val
+const mapZone = (val) => zonesRef.value.find(z => z.value===val)?.label || val
 
-const mapLabel = (val) => categories.find(c => c.value===val)?.label || val
-const mapZone = (val) => zones.find(z => z.value===val)?.label || val
+onMounted(async () => {
+  const res = await fetch('/gold-data.json', { cache: 'no-store' })
+  const data = await res.json()
+  categoriesRef.value = data.categories || []
+  zonesRef.value = data.zones || []
+  const list = (data.goldItems || []).map((it, idx) => ({ id: it.id ?? (idx + 1), ...it }))
+  item.value = list.find(i => String(i.id) === String(route.params.id)) || list[0] || item.value
+})
 </script>
 
 <style scoped>

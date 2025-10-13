@@ -30,29 +30,46 @@
         </div>
       </div>
     </div>
+  <div v-if="filtered.length===0" class="empty">敬请期待</div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { goldItems, zones as zonesDef, categories as categoriesDef } from '../data/gold'
+// 直接从 public/gold-data.json 拉取
 
 const router = useRouter()
 
-const zones = zonesDef
-const categories = categoriesDef
+const zones = ref([])
+const categories = ref([])
+const items = ref([])
 
-const zone = ref(zones[0].value)
-const category = ref(categories[0].value)
+const zone = ref('')
+const category = ref('')
 
 const filtered = computed(() => {
-  return goldItems.filter(i => i.zone === zone.value && i.category === category.value)
+  return items.value.filter(i => {
+    if (i.zone !== zone.value) return false
+    if (category.value === 'all') return true
+    return i.category === category.value
+  })
 })
 
 const goDetail = (item) => {
   router.push({ name: 'detail', params: { id: item.id } })
 }
+
+onMounted(async () => {
+  const res = await fetch('/gold-data.json', { cache: 'no-store' })
+  const data = await res.json()
+  zones.value = data.zones || []
+  categories.value = [{ label: '所有', value: 'all' }, ...(data.categories || [])]
+  const raw = data.goldItems || []
+  items.value = raw.map((it, idx) => ({ id: it.id ?? (idx + 1), ...it }))
+  zone.value = zones.value[0]?.value || ''
+  category.value = 'all'
+})
 </script>
 
 <style scoped>
@@ -68,6 +85,7 @@ const goDetail = (item) => {
 .meta { padding: 10px; display: flex; align-items: center; justify-content: space-between; }
 .title { font-weight: 700; color: #3a2f0a; font-size: .95rem; }
 .weight { color: #7a6a30; font-size: .9rem; }
+.empty { text-align: center; padding: 24px; color: #7a6a30; }
 @media (min-width: 768px){ .grid { grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 16px; } }
 </style>
 
