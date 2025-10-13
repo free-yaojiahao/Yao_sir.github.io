@@ -36,11 +36,12 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed, onMounted, watch, onUnmounted, nextTick } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 // 直接从 public/gold-data.json 拉取
 
 const router = useRouter()
+const route = useRoute()
 
 const zones = ref([])
 const categories = ref([])
@@ -61,15 +62,22 @@ const filtered = computed(() => {
 })
 const paged = computed(() => filtered.value.slice(0, page.value * PER_PAGE))
 
+const getScrollTop = () => Math.max(window.scrollY, document.documentElement.scrollTop, document.body.scrollTop)
+const setScrollTop = (val=0) => {
+  window.scrollTo(0, val)
+  document.documentElement.scrollTop = val
+  document.body.scrollTop = val
+}
 const SCROLL_KEY = 'gold_scroll_top'
-
 const restoreScroll = () => {
   const last = parseInt(sessionStorage.getItem(SCROLL_KEY) || '0', 10)
-  window.scrollTo({ top: last, behavior: 'auto' })
+  nextTick(() => {
+    setTimeout(() => setScrollTop(last), 40)
+  })
 }
 
 const goDetail = (item) => {
-  sessionStorage.setItem(SCROLL_KEY, String(window.scrollY))
+  sessionStorage.setItem(SCROLL_KEY, String(getScrollTop()))
   router.push({ name: 'detail', params: { id: item.id } })
 }
 
@@ -92,14 +100,15 @@ onMounted(async () => {
   items.value = raw.map((it, idx) => ({ id: it.id ?? (idx + 1), ...it }))
 
   // 恢复zone和category选择
-  const lastZone = sessionStorage.getItem(ZONE_KEY) || zones.value[0]?.value || ''
-  const lastCat = sessionStorage.getItem(CAT_KEY) || 'all'
-  zone.value = lastZone
-  category.value = lastCat
+  const queryZone = route.query.zone
+  const queryCat = route.query.category
+  const lastZone = (typeof queryZone === 'string' && queryZone) || sessionStorage.getItem(ZONE_KEY) || zones.value[0]?.value || ''
+  const lastCat = (typeof queryCat === 'string' && queryCat) || sessionStorage.getItem(CAT_KEY) || 'all'
+  zone.value = lastZone; category.value = lastCat
 
   window.addEventListener('scroll', onScroll)
   // 页面加载完恢复滚动
-  setTimeout(restoreScroll, 40)
+  setTimeout(restoreScroll, 200)
 })
 
 // 切换区/类别时重置分页

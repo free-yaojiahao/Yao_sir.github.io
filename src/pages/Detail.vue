@@ -26,7 +26,10 @@ const mapLabel = (val) => categoriesRef.value.find(c => c.value===val)?.label ||
 const mapZone = (val) => zonesRef.value.find(z => z.value===val)?.label || val
 
 const goBack = () => {
-  router.replace({ name: 'home' })
+  router.replace({ name: 'home', query: {
+    zone: item.value.zone,
+    category: item.value.category
+  } })
   sessionStorage.removeItem('gold_scroll_top')
 }
 
