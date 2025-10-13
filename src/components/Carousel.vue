@@ -14,7 +14,7 @@
   >
     <div class="track" :style="trackStyle">
       <div v-for="(src, idx) in images" :key="idx" class="slide">
-        <img :src="src" alt="slide" />
+        <img :src="src" alt="slide" @click="openPreview(idx)" style="cursor: zoom-in" />
       </div>
     </div>
     <button class="nav left" @click="prev" aria-label="上一张">‹</button>
@@ -26,11 +26,18 @@
         @click="go(idx)"
       />
     </div>
+    <vue-easy-lightbox
+      :visible="previewVisible"
+      :imgs="images"
+      :index="previewIndex"
+      @hide="previewVisible = false"
+    />
   </div>
 </template>
 
 <script setup>
 import { ref, watch, computed, onMounted, onBeforeUnmount } from 'vue'
+import VueEasyLightbox from 'vue-easy-lightbox'
 
 const props = defineProps({
   images: { type: Array, default: () => [] },
@@ -38,6 +45,13 @@ const props = defineProps({
   interval: { type: Number, default: 3000 },
   loop: { type: Boolean, default: true },
 })
+
+const previewVisible = ref(false)
+const previewIndex = ref(0)
+const openPreview = (idx) => {
+  previewIndex.value = idx
+  previewVisible.value = true
+}
 
 const currentIndex = ref(0)
 const isPaused = ref(false)
