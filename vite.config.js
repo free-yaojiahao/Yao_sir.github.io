@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  base: '/Yao_sir.github.io/', // GitHub Pages仓库路径
+  base: '/', // 使用自定义域名，设置为根路径
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
