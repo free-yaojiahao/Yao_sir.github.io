@@ -11,7 +11,7 @@
       <router-view />
     </main>
 
-    <footer class="site-footer">© 2025 黄金饰品展示</footer>
+    <footer class="site-footer">© 铭心珠宝 - 黄金饰品展示</footer>
   </div>
   
 </template>

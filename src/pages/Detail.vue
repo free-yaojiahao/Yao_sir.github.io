@@ -4,7 +4,7 @@
     <Carousel :images="item.images" :autoplay="true" :interval="3000" />
     <div class="info">
       <h2 class="title">{{ item.title }}</h2>
-      <div class="row"><span>克重</span><b>{{ item.weight }} 克</b></div>
+      <div class="row"><span>克重</span><b>{{ item.weight === 0 ? '-' : item.weight + ' 克' }}</b></div>
       <div class="row"><span>分类</span><b>{{ mapLabel(item.category) }}</b></div>
       <div class="row"><span>区域</span><b>{{ mapZone(item.zone) }}</b></div>
     </div>

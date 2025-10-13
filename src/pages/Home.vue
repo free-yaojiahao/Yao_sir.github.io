@@ -21,21 +21,22 @@
     <div class="grid">
       <div 
         class="item-card" 
-        v-for="it in filtered" :key="it.id"
+        v-for="it in paged" :key="it.id"
         @click="goDetail(it)">
         <img class="thumb" :src="it.images[0]" :alt="it.title" />
-        <div class="meta">
+        <!-- <div class="meta">
           <div class="title">{{ it.title }}</div>
           <div class="weight">{{ it.weight }} 克</div>
-        </div>
+        </div> -->
       </div>
     </div>
-  <div v-if="filtered.length===0" class="empty">敬请期待</div>
+    <div v-if="filtered.length === 0" class="empty">敬请期待</div>
+    <div v-else-if="paged.length < filtered.length" class="empty">正在加载更多…</div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 // 直接从 public/gold-data.json 拉取
 
@@ -48,6 +49,9 @@ const items = ref([])
 const zone = ref('')
 const category = ref('')
 
+const PER_PAGE = 12
+const page = ref(1)
+
 const filtered = computed(() => {
   return items.value.filter(i => {
     if (i.zone !== zone.value) return false
@@ -55,9 +59,17 @@ const filtered = computed(() => {
     return i.category === category.value
   })
 })
+const paged = computed(() => filtered.value.slice(0, page.value * PER_PAGE))
 
 const goDetail = (item) => {
   router.push({ name: 'detail', params: { id: item.id } })
+}
+
+function onScroll() {
+  const el = document.documentElement
+  if (el.scrollTop + window.innerHeight + 80 >= el.scrollHeight && paged.value.length < filtered.value.length) {
+    page.value++
+  }
 }
 
 onMounted(async () => {
@@ -69,6 +81,16 @@ onMounted(async () => {
   items.value = raw.map((it, idx) => ({ id: it.id ?? (idx + 1), ...it }))
   zone.value = zones.value[0]?.value || ''
   category.value = 'all'
+  window.addEventListener('scroll', onScroll)
+})
+
+// 切换区/类别时重置分页
+function resetPage() { page.value = 1 }
+
+watch([zone, category], resetPage)
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
 })
 </script>
 
