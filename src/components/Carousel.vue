@@ -5,7 +5,7 @@
     @mouseenter="pause"
     @mouseleave="resume"
     @touchstart.passive="onTouchStart"
-    @touchmove.prevent="onTouchMove"
+    @touchmove="onTouchMove"
     @touchend.passive="onTouchEnd"
     @mousedown.prevent="onMouseDown"
     @mousemove.prevent="onMouseMove"
