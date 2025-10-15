@@ -10,17 +10,8 @@
     { "label": "耳环", "value": "earring" }
   ],
   "goldItems": [
-    {
-      "id": 1,
-      "zone": "workshop",
-      "category": "necklace",
-      "title": "工艺项链",
-      "weight": 22.5,
-      "images": [
-        "https://picsum.photos/seed/sample-4/800/800",
-        "https://picsum.photos/seed/sample-5/800/800"
-      ]
-    },
+    { "id": 1,  "zone": "workshop", "category": "bracelet", "title": "工艺-手镯", "weight": 0, "images": ["/assets/workshop/光面泥鳅背手镯.jpg","/assets/workshop/光面泥鳅背手镯 (2).mp4"] },
+    { "id": 101,  "zone": "workshop", "category": "bracelet", "title": "工艺-手镯", "weight": 0, "images": ["/assets/workshop/古法泥鳅背手镯.jpg","/assets/workshop/古法泥鳅背手镯.mp4"] },
     { "id": 2,  "zone": "workshop", "category": "ring", "title": "工艺-戒指", "weight": 0, "images": ["/assets/workshop/088f9c234238386bbf8ab8ea1d5e4f83.jpg","/assets/workshop/c567ff56f9aa42398cc2e509c086d872.mp4"] },
     { "id": 4,  "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/18361eb90f06c04219e9ba99e9163bfd.jpg"] },
     { "id": 5,  "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/32ac58f8a9e8218995ed1ac3559ae0f1.jpg"] },
