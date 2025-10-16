@@ -10,6 +10,10 @@
     { "label": "耳环", "value": "earring" }
   ],
   "goldItems": [
+    { "id": 104,  "zone": "workshop", "category": "ring", "title": "工艺-精品卡家米字戒 ", "weight": 5, "images": ["/assets/workshop/精品卡家米字戒.jpg","/assets/workshop/精品卡家米字戒.mp4"] },
+    { "id": 105,  "zone": "workshop", "category": "ring", "title": "工艺-精品花戒 ", "weight": 5, "images": ["/assets/workshop/精品花戒.jpg","/assets/workshop/精品花戒.mp4"] },
+    
+
     { "id": 102,  "zone": "workshop", "category": "bracelet", "title": "工艺-窄边光面泥鳅背手镯 ", "weight": 14, "images": ["/assets/workshop/窄边光面泥鳅背手镯.jpg","/assets/workshop/窄边光面泥鳅背手镯.mp4"] },
     { "id": 103,  "zone": "workshop", "category": "bracelet", "title": "工艺-古法束圈手镯", "weight": 30, "images": ["/assets/workshop/古法束圈手镯.jpg","/assets/workshop/古法束圈手镯.mp4"] },
   
