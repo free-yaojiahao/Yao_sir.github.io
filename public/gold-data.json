@@ -12,6 +12,7 @@
  "goldItems": [
     
 
+    { "id": 1000, "zone": "workshop", "category": "necklace", "title": "工艺-实物复制", "weight": 10, "images": ["/assets/workshop/定制.jpg", "/assets/workshop/定制1.jpg"] },
     { "id": 1000, "zone": "workshop", "category": "necklace", "title": "工艺-可来图定制金钥匙", "weight": 10, "images": ["/assets/workshop/金钥匙.jpg", "/assets/workshop/金钥匙.jpg"] },
     { "id": 1001, "zone": "workshop", "category": "bracelet", "title": "工艺-窄边光面泥鳅背手镯", "weight": 14, "images": ["/assets/workshop/窄边光面泥鳅背手镯.jpg", "/assets/workshop/窄边光面泥鳅背手镯.mp4"] },
     { "id": 1002, "zone": "workshop", "category": "bracelet", "title": "工艺-古法束圈手镯", "weight": 30, "images": ["/assets/workshop/古法束圈手镯.jpg", "/assets/workshop/古法束圈手镯.mp4"] },
