@@ -9,44 +9,44 @@
     { "label": "戒指", "value": "ring" },
     { "label": "耳环", "value": "earring" }
   ],
-  "goldItems": [
-    { "id": 104,  "zone": "workshop", "category": "ring", "title": "工艺-精品卡家米字戒 ", "weight": 5, "images": ["/assets/workshop/精品卡家米字戒.jpg","/assets/workshop/精品卡家米字戒.mp4"] },
-    { "id": 105,  "zone": "workshop", "category": "ring", "title": "工艺-精品花戒 ", "weight": 5, "images": ["/assets/workshop/精品花戒.jpg","/assets/workshop/精品花戒.mp4"] },
+ "goldItems": [
     
+    { "id": 1001, "zone": "workshop", "category": "bracelet", "title": "工艺-窄边光面泥鳅背手镯", "weight": 14, "images": ["/assets/workshop/窄边光面泥鳅背手镯.jpg", "/assets/workshop/窄边光面泥鳅背手镯.mp4"] },
+    { "id": 1002, "zone": "workshop", "category": "bracelet", "title": "工艺-古法束圈手镯", "weight": 30, "images": ["/assets/workshop/古法束圈手镯.jpg", "/assets/workshop/古法束圈手镯.mp4"] },
+    { "id": 1003, "zone": "workshop", "category": "bracelet", "title": "工艺-光面泥鳅背手镯", "weight": 35, "images": ["/assets/workshop/光面泥鳅背手镯.jpg", "/assets/workshop/光面泥鳅背手镯 (2).mp4"] },
+    { "id": 1004, "zone": "workshop", "category": "bracelet", "title": "工艺-古法泥鳅背手镯", "weight": 35, "images": ["/assets/workshop/古法泥鳅背手镯.jpg", "/assets/workshop/古法泥鳅背手镯2.mp4"] },
 
-    { "id": 102,  "zone": "workshop", "category": "bracelet", "title": "工艺-窄边光面泥鳅背手镯 ", "weight": 14, "images": ["/assets/workshop/窄边光面泥鳅背手镯.jpg","/assets/workshop/窄边光面泥鳅背手镯.mp4"] },
-    { "id": 103,  "zone": "workshop", "category": "bracelet", "title": "工艺-古法束圈手镯", "weight": 30, "images": ["/assets/workshop/古法束圈手镯.jpg","/assets/workshop/古法束圈手镯.mp4"] },
-  
-    { "id": 1,  "zone": "workshop", "category": "bracelet", "title": "工艺-光面泥鳅背手镯", "weight": 35, "images": ["/assets/workshop/光面泥鳅背手镯.jpg","/assets/workshop/光面泥鳅背手镯 (2).mp4"] },
-    { "id": 101,  "zone": "workshop", "category": "bracelet", "title": "工艺-古法泥鳅背手镯", "weight": 35, "images": ["/assets/workshop/古法泥鳅背手镯.jpg","/assets/workshop/古法泥鳅背手镯2.mp4"] },
-    { "id": 2,  "zone": "workshop", "category": "ring", "title": "工艺-戒指", "weight": 0, "images": ["/assets/workshop/088f9c234238386bbf8ab8ea1d5e4f83.jpg","/assets/workshop/c567ff56f9aa42398cc2e509c086d872.mp4"] },
-    { "id": 4,  "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/18361eb90f06c04219e9ba99e9163bfd.jpg"] },
-    { "id": 5,  "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/32ac58f8a9e8218995ed1ac3559ae0f1.jpg"] },
-    { "id": 6,  "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/4475e36d4a53d6bc7faea187068c7e53.jpg"] },
-    { "id": 7,  "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/1e19d7680462ec63a6043393df128473.jpg"] },
-    { "id": 8,  "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/2571555deef13b37c59ae3783a4c4e5e.jpg"] },
-    { "id": 9,  "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/1877fbeeca4cdc93501c97f2e7573617.jpg"] },
-    { "id": 10, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/e10d6d281f445d58ba3c633d894a89d3.jpg"] },
-    { "id": 11, "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/726bdfbd6dcd02d87775e13bbdd7c925.jpg"] },
-    { "id": 12, "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/9170e2595b9523c0f6484951b70da2b4.jpg"] },
-    { "id": 13, "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/4470fa8ff9b7f31f950853e90d76d943.jpg"] },
-    { "id": 14, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/adfb08f35f9fa26b85fb43d048b6d7a7.jpg"] },
-    { "id": 15, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/e7ed0121cf43f97d8e6155602207bad9.jpg"] },
-    { "id": 16, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/009624b2a5830544f5eab0092e656ab1.jpg"] },
-    { "id": 17, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/b54e890d8d5edb52c27d44c5b97aee70.jpg"] },
-    { "id": 18, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/3074122e1758ff68dd84cca6681cf9a2.jpg"] },
-    { "id": 19, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/c6bfeb16b5305efa4f9ae990566d7915.jpg"] },
-    { "id": 20, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/839d14a59af419419f3071280051797e.jpg"] },
-    { "id": 21, "zone": "finished", "category": "bracelet", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/9f9a2d0facc91278f725c9e383753a22.jpg"] },
-    { "id": 22, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/59ce06588bec99a94127ec6cd4c7b598.jpg"] },
-    { "id": 23, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/cb6c8402310f6fb61191a43d41bc0f38.jpg"] },
-    { "id": 24, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/40d30093258102119ab0c136ada84e53.jpg"] },
-    { "id": 25, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/71c52a2c53901023327f1b728ea22627.jpg"] },
-    { "id": 26, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/725539bf153c4418a3c9cf89c53974fd.jpg"] },
-    { "id": 27, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/ca626685fbba09bb5a81ddc7faca56ed.jpg"] },
-    { "id": 28, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/457dbf20cec7edaae4b22d45e898b1ba.jpg"] },
-    { "id": 29, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/10fded10f86d1429cc512bf08ec39285.jpg"] }
-  ]
+    { "id": 2001, "zone": "workshop", "category": "ring", "title": "工艺-戒指", "weight": 0, "images": ["/assets/workshop/088f9c234238386bbf8ab8ea1d5e4f83.jpg", "/assets/workshop/c567ff56f9aa42398cc2e509c086d872.mp4"] },
+    { "id": 2002, "zone": "workshop", "category": "ring", "title": "工艺-精品卡家米字戒", "weight": 5, "images": ["/assets/workshop/精品卡家米字戒.jpg", "/assets/workshop/精品卡家米字戒.mp4"] },
+    { "id": 2003, "zone": "workshop", "category": "ring", "title": "工艺-精品花戒", "weight": 5, "images": ["/assets/workshop/精品花戒.jpg", "/assets/workshop/精品花戒.mp4"] },
+
+    { "id": 3001, "zone": "finished", "category": "bracelet", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/9f9a2d0facc91278f725c9e383753a22.jpg"] },
+
+    { "id": 4001, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/b54e890d8d5edb52c27d44c5b97aee70.jpg"] },
+    { "id": 4002, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/3074122e1758ff68dd84cca6681cf9a2.jpg"] },
+    { "id": 4003, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/c6bfeb16b5305efa4f9ae990566d7915.jpg"] },
+    { "id": 4004, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/839d14a59af419419f3071280051797e.jpg"] },
+    { "id": 4005, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/59ce06588bec99a94127ec6cd4c7b598.jpg"] },
+    { "id": 4006, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/cb6c8402310f6fb61191a43d41bc0f38.jpg"] },
+    { "id": 4007, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/40d30093258102119ab0c136ada84e53.jpg"] },
+    { "id": 4008, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/71c52a2c53901023327f1b728ea22627.jpg"] },
+    { "id": 4009, "zone": "finished", "category": "necklace", "title": "成品-项链", "weight": 0, "images": ["/assets/finished/725539bf153c4418a3c9cf89c53974fd.jpg"] },
+
+    { "id": 5001, "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/32ac58f8a9e8218995ed1ac3559ae0f1.jpg"] },
+    { "id": 5002, "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/4475e36d4a53d6bc7faea187068c7e53.jpg"] },
+    { "id": 5003, "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/1e19d7680462ec63a6043393df128473.jpg"] },
+    { "id": 5004, "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/726bdfbd6dcd02d87775e13bbdd7c925.jpg"] },
+    { "id": 5005, "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/9170e2595b9523c0f6484951b70da2b4.jpg"] },
+    { "id": 5006, "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/4470fa8ff9b7f31f950853e90d76d943.jpg"] },
+
+    { "id": 6001, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/2571555deef13b37c59ae3783a4c4e5e.jpg"] },
+    { "id": 6002, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/e10d6d281f445d58ba3c633d894a89d3.jpg"] },
+    { "id": 6003, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/adfb08f35f9fa26b85fb43d048b6d7a7.jpg"] },
+    { "id": 6004, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/e7ed0121cf43f97d8e6155602207bad9.jpg"] },
+    { "id": 6005, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/009624b2a5830544f5eab0092e656ab1.jpg"] },
+    { "id": 6006, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/ca626685fbba09bb5a81ddc7faca56ed.jpg"] },
+    { "id": 6007, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/457dbf20cec7edaae4b22d45e898b1ba.jpg"] }
+]
 }
 
 
