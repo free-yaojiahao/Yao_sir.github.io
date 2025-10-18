@@ -11,13 +11,19 @@
   ],
  "goldItems": [
     
-
+    { "id": 999, "zone": "workshop", "category": "bracelet", "title": "工艺-四叶草手镯", "weight": 30, "images": ["/assets/workshop/四叶草手镯.jpg", "/assets/workshop/四叶草手镯.jpg"] },
     { "id": 1001, "zone": "workshop", "category": "bracelet", "title": "工艺-窄边光面泥鳅背手镯", "weight": 14, "images": ["/assets/workshop/窄边光面泥鳅背手镯.jpg", "/assets/workshop/窄边光面泥鳅背手镯.mp4"] },
     { "id": 1002, "zone": "workshop", "category": "bracelet", "title": "工艺-古法束圈手镯", "weight": 30, "images": ["/assets/workshop/古法束圈手镯.jpg", "/assets/workshop/古法束圈手镯.mp4"] },
     { "id": 1003, "zone": "workshop", "category": "bracelet", "title": "工艺-光面泥鳅背手镯", "weight": 35, "images": ["/assets/workshop/光面泥鳅背手镯.jpg", "/assets/workshop/光面泥鳅背手镯 (2).mp4"] },
     { "id": 1004, "zone": "workshop", "category": "bracelet", "title": "工艺-古法泥鳅背手镯", "weight": 35, "images": ["/assets/workshop/古法泥鳅背手镯.jpg", "/assets/workshop/古法泥鳅背手镯2.mp4"] },
 
-    { "id": 2001, "zone": "workshop", "category": "ring", "title": "工艺-戒指", "weight": 0, "images": ["/assets/workshop/088f9c234238386bbf8ab8ea1d5e4f83.jpg", "/assets/workshop/c567ff56f9aa42398cc2e509c086d872.mp4"] },
+
+
+
+    { "id": 1998, "zone": "workshop", "category": "ring", "title": "工艺-碎碎冰戒指", "weight": 5, "images": ["/assets/workshop/碎碎冰戒指.jpg", "/assets/workshop/碎碎冰戒指.mp4"] },
+    { "id": 1999, "zone": "workshop", "category": "ring", "title": "工艺-卡家戒指", "weight": 5, "images": ["/assets/workshop/卡家戒指.jpg", "/assets/workshop/卡家戒指.mp4"] },
+    { "id": 2000, "zone": "workshop", "category": "ring", "title": "工艺-纸醉金迷戒指", "weight": 5, "images": ["/assets/workshop/纸醉金迷戒指.jpg", "/assets/workshop/纸醉金迷戒指.mp4"] },
+
     { "id": 2002, "zone": "workshop", "category": "ring", "title": "工艺-精品卡家米字戒", "weight": 5, "images": ["/assets/workshop/精品卡家米字戒.jpg", "/assets/workshop/精品卡家米字戒.mp4"] },
     { "id": 2003, "zone": "workshop", "category": "ring", "title": "工艺-精品花戒", "weight": 5, "images": ["/assets/workshop/精品花戒.jpg", "/assets/workshop/精品花戒.mp4"] },
     { "id": 1000, "zone": "workshop", "category": "necklace", "title": "工艺-实物复制", "weight": 10, "images": ["/assets/workshop/定制.jpg", "/assets/workshop/定制1.jpg"] },
