@@ -77,9 +77,9 @@
     { "id": 5004, "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/726bdfbd6dcd02d87775e13bbdd7c925.jpg"] },
     { "id": 5005, "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/9170e2595b9523c0f6484951b70da2b4.jpg"] },
     { "id": 5006, "zone": "finished", "category": "ring", "title": "成品-戒指", "weight": 0, "images": ["/assets/finished/4470fa8ff9b7f31f950853e90d76d943.jpg"] },
-
-    { "id": 6001, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/2571555deef13b37c59ae3783a4c4e5e.jpg"] },
-    { "id": 6002, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/e10d6d281f445d58ba3c633d894a89d3.jpg"] },
+    { "id": 6001, "zone": "finished", "category": "ring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/2571555deef13b37c59ae3783a4c4e5e.jpg"] },
+    { "id": 6002, "zone": "finished", "category": "ring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/e10d6d281f445d58ba3c633d894a89d3.jpg"] },
+   
     { "id": 6003, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/adfb08f35f9fa26b85fb43d048b6d7a7.jpg"] },
     { "id": 6004, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/e7ed0121cf43f97d8e6155602207bad9.jpg"] },
     { "id": 6005, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/009624b2a5830544f5eab0092e656ab1.jpg"] },
