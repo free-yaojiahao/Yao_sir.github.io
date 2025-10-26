@@ -8,6 +8,7 @@
     { "label": "项链", "value": "necklace" },
     { "label": "戒指", "value": "ring" },
     { "label": "耳环", "value": "earring" },
+    { "label": "手链", "value": "hands" },
     { "label": "吊坠", "value": "pendant" }
   ],
  "goldItems": [
@@ -30,6 +31,9 @@
     { "id": 1000, "zone": "workshop", "category": "necklace", "title": "工艺-实物复制", "weight": 10, "images": ["/assets/workshop/定制.jpg", "/assets/workshop/定制1.jpg"] },
     { "id": 1000, "zone": "workshop", "category": "necklace", "title": "工艺-可来图定制金钥匙", "weight": 10, "images": ["/assets/workshop/金钥匙.jpg", "/assets/workshop/金钥匙.jpg"] },
 
+    { "id": 9001, "zone": "workshop", "category": "hands", "title": "工艺-手链", "weight": 0, "images": ["/assets/finished/457dbf20cec7edaae4b22d45e898b1ba.jpg"] },
+
+    { "id": 10001, "zone": "workshop", "category": "pendant", "title": "工艺-吊坠", "weight": 0, "images": ["/assets/finished/457dbf20cec7edaae4b22d45e898b1ba.jpg"] },
     
     { "id": 3001, "zone": "finished", "category": "bracelet", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/9f9a2d0facc91278f725c9e383753a22.jpg"] },
   
@@ -91,7 +95,26 @@
     { "id": 6004, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/e7ed0121cf43f97d8e6155602207bad9.jpg"] },
     { "id": 6005, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/009624b2a5830544f5eab0092e656ab1.jpg"] },
     { "id": 6006, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/ca626685fbba09bb5a81ddc7faca56ed.jpg"] },
-    { "id": 6007, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/457dbf20cec7edaae4b22d45e898b1ba.jpg"] }
+    { "id": 6007, "zone": "finished", "category": "earring", "title": "成品-耳环", "weight": 0, "images": ["/assets/finished/457dbf20cec7edaae4b22d45e898b1ba.jpg"] },
+
+    { "id": 6990, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链15.jpg"] },
+    { "id": 6990, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链14.jpg"] },
+    { "id": 6990, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链13.jpg"] },
+    { "id": 6990, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链12.jpg"] },
+    { "id": 6990, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链11.jpg"] },
+    { "id": 6991, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链10.jpg"] },
+    { "id": 6992, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链9.jpg"] },
+    { "id": 6993, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链8.jpg"] },
+    { "id": 6994, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链7.jpg"] },
+    { "id": 6995, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链6.jpg"] },
+    { "id": 6996, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链5.jpg"] },
+    { "id": 6997, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链4.jpg"] },
+    { "id": 6998, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链3.jpg"] },
+    { "id": 6999, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链2.jpg"] },
+    { "id": 7000, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链1.jpg"] },
+    { "id": 7001, "zone": "finished", "category": "hands", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链.jpg"] },
+
+    { "id": 8001, "zone": "finished", "category": "pendant", "title": "成品-吊坠", "weight": 0, "images": ["/assets/finished/457dbf20cec7edaae4b22d45e898b1ba.jpg"] }
 ]
 }
 
