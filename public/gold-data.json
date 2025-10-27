@@ -13,6 +13,12 @@
   ],
  "goldItems": [
     
+
+
+
+
+    { "id": 997, "zone": "workshop", "category": "bracelet", "title": "工艺-吉言手镯3.0", "weight": 160, "images": ["/assets/workshop/吉言手镯3.0.jpg", "/assets/workshop/吉言手镯3.0.mp4"] },
+    { "id": 998, "zone": "workshop", "category": "bracelet", "title": "工艺-吉言手镯2.8", "weight": 150, "images": ["/assets/workshop/吉言手镯2.8.jpg", "/assets/workshop/吉言手镯2.8.mp4"] },
     { "id": 999, "zone": "workshop", "category": "bracelet", "title": "工艺-四叶草手镯", "weight": 30, "images": ["/assets/workshop/四叶草手镯.jpg", "/assets/workshop/四叶草手镯.jpg"] },
     { "id": 1001, "zone": "workshop", "category": "bracelet", "title": "工艺-窄边光面泥鳅背手镯", "weight": 14, "images": ["/assets/workshop/窄边光面泥鳅背手镯.jpg", "/assets/workshop/窄边光面泥鳅背手镯.mp4"] },
     { "id": 1002, "zone": "workshop", "category": "bracelet", "title": "工艺-古法束圈手镯", "weight": 30, "images": ["/assets/workshop/古法束圈手镯.jpg", "/assets/workshop/古法束圈手镯.mp4"] },
