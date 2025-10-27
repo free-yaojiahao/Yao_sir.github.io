@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-// 空：壳组件仅承载路由视图
+import PreloadManager from './components/PreloadManager.vue'
 </script>
 
 <style scoped>

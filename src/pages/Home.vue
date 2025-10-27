@@ -24,7 +24,13 @@
         class="item-card" 
         v-for="it in paged" :key="it.id"
         @click="goDetail(it)">
-        <img class="thumb" :src="it.images[0]" :alt="it.title" />
+        <LazyImage 
+          :src="it.images[0]" 
+          :alt="it.title"
+          aspect-ratio="1/1"
+          root-margin="100px"
+          class="thumb"
+        />
         <!-- <div class="meta">
           <div class="title">{{ it.title }}</div>
           <div class="weight">{{ it.weight }} 克</div>
@@ -39,6 +45,8 @@
 <script setup>
 import { ref, computed, onMounted, watch, onUnmounted, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import LazyImage from '../components/LazyImage.vue'
+import { preloadManager } from '../components/PreloadManager.vue'
 // 直接从 public/gold-data.json 拉取
 
 const router = useRouter()
@@ -51,13 +59,12 @@ const items = ref([])
 const zone = ref('')
 const category = ref('')
 
-const PER_PAGE = 12
+const PER_PAGE = window.innerWidth <= 768 ? 20 : 12
 const page = ref(1)
 
 const filtered = computed(() => {
   return items.value.filter(i => {
     if (i.zone !== zone.value) return false
-    if (category.value === 'all') return true
     return i.category === category.value
   })
 })
@@ -82,10 +89,60 @@ const goDetail = (item) => {
   router.push({ name: 'detail', params: { id: item.id } })
 }
 
+let scrollTimer = null
+let preloadTimer = null
+
 function onScroll() {
-  const el = document.documentElement
-  if (el.scrollTop + window.innerHeight + 80 >= el.scrollHeight && paged.value.length < filtered.value.length) {
-    page.value++
+  // 节流处理，避免频繁触发
+  if (scrollTimer) return
+  scrollTimer = setTimeout(() => {
+    const el = document.documentElement
+    const scrollTop = el.scrollTop || window.pageYOffset || document.body.scrollTop
+    const windowHeight = window.innerHeight
+    const documentHeight = el.scrollHeight
+    
+    // 手机端提前更多距离加载
+    const threshold = window.innerWidth <= 768 ? 200 : 80
+    
+    if (scrollTop + windowHeight + threshold >= documentHeight && paged.value.length < filtered.value.length) {
+      page.value++
+    }
+    
+    // 触发预加载检查
+    schedulePreload()
+    
+    scrollTimer = null
+  }, 100)
+}
+
+// 预加载可视区域商品的详情资源
+function schedulePreload() {
+  if (preloadTimer) return
+  preloadTimer = setTimeout(() => {
+    preloadVisibleItems()
+    preloadTimer = null
+  }, 500) // 延迟500ms执行预加载，避免频繁触发
+}
+
+// 预加载可视区域内的商品资源
+async function preloadVisibleItems() {
+  if (!paged.value.length) return
+  
+  // 获取可视区域内的商品（前6个）
+  const visibleItems = paged.value.slice(0, Math.min(6, paged.value.length))
+  
+  // 预加载这些商品的详情资源
+  for (const item of visibleItems) {
+    if (item.images && item.images.length > 1) {
+      // 预加载除第一张图片外的其他资源（第一张已经在列表页加载了）
+      const resourcesToPreload = item.images.slice(1)
+      
+      for (const resourceUrl of resourcesToPreload) {
+        const isVideo = /\.(mp4|mov|webm)$/i.test(resourceUrl)
+        preloadManager.preloadResource(resourceUrl, isVideo ? 'video' : 'image')
+          .catch(err => console.warn(`预加载失败: ${resourceUrl}`, err))
+      }
+    }
   }
 }
 
@@ -96,7 +153,7 @@ onMounted(async () => {
   const res = await fetch('/gold-data.json', { cache: 'no-store' })
   const data = await res.json()
   zones.value = data.zones || []
-  categories.value = [{ label: '所有', value: 'all' }, ...(data.categories || [])]
+  categories.value = data.categories || []
   const raw = data.goldItems || []
   items.value = raw.map((it, idx) => ({ id: it.id ?? (idx + 1), ...it }))
 
@@ -104,12 +161,14 @@ onMounted(async () => {
   const queryZone = route.query.zone
   const queryCat = route.query.category
   const lastZone = (typeof queryZone === 'string' && queryZone) || sessionStorage.getItem(ZONE_KEY) || zones.value[0]?.value || ''
-  const lastCat = (typeof queryCat === 'string' && queryCat) || sessionStorage.getItem(CAT_KEY) || 'all'
+  const lastCat = (typeof queryCat === 'string' && queryCat) || sessionStorage.getItem(CAT_KEY) || categories.value[0]?.value || ''
   zone.value = lastZone; category.value = lastCat
 
-  window.addEventListener('scroll', onScroll)
+  window.addEventListener('scroll', onScroll, { passive: true })
   // 页面加载完恢复滚动
   setTimeout(restoreScroll, 200)
+  // 页面加载完成后开始预加载
+  setTimeout(preloadVisibleItems, 1000)
 })
 
 // 切换区/类别时重置分页

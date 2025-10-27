@@ -26,11 +26,13 @@ const mapLabel = (val) => categoriesRef.value.find(c => c.value===val)?.label ||
 const mapZone = (val) => zonesRef.value.find(z => z.value===val)?.label || val
 
 const goBack = () => {
-  router.replace({ name: 'home', query: {
-    zone: item.value.zone,
-    category: item.value.category
-  } })
-  sessionStorage.removeItem('gold_scroll_top')
+  // 使用浏览器历史记录返回，保持列表页状态
+  if (window.history.length > 1) {
+    window.history.back()
+  } else {
+    // 如果没有历史记录，则跳转到首页
+    router.push({ name: 'home' })
+  }
 }
 
 onMounted(async () => {
