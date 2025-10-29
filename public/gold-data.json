@@ -9,7 +9,8 @@
     { "label": "戒指", "value": "ring" },
     { "label": "耳环", "value": "earring" },
     { "label": "手链", "value": "hands" },
-    { "label": "吊坠", "value": "pendant" }
+    { "label": "吊坠", "value": "pendant" },
+    { "label": "金表", "value": "ciassics" }
   ],
  "goldItems": [
     
@@ -59,7 +60,7 @@
     { "id": 3982, "zone": "finished", "category": "necklace", "title": "成品-精品项链20", "weight": 0, "images": ["/assets/finished/精品项链20.jpg"] },
     { "id": 3983, "zone": "finished", "category": "necklace", "title": "成品-精品项链19", "weight": 0, "images": ["/assets/finished/精品项链19.jpg"] },
     { "id": 3984, "zone": "finished", "category": "necklace", "title": "成品-精品项链18", "weight": 0, "images": ["/assets/finished/精品项链18.jpg"] },
-    { "id": 3999, "zone": "finished", "category": "necklace", "title": "成品-精品项链17", "weight": 0, "images": ["/assets/finished/精品项链17.jpg"] },
+    { "id": 3966, "zone": "finished", "category": "necklace", "title": "成品-精品项链17", "weight": 0, "images": ["/assets/finished/精品项链17.jpg"] },
     { "id": 3985, "zone": "finished", "category": "necklace", "title": "成品-精品项链16", "weight": 0, "images": ["/assets/finished/精品项链16.jpg"] },
     { "id": 3986, "zone": "finished", "category": "necklace", "title": "成品-精品项链15", "weight": 0, "images": ["/assets/finished/精品项链15.jpg"] },
     { "id": 3987, "zone": "finished", "category": "necklace", "title": "成品-精品项链14", "weight": 0, "images": ["/assets/finished/精品项链14.jpg"] },
@@ -116,6 +117,26 @@
     { "id": 6998, "zone": "finished", "category": "hands", "title": "成品-爆款盘缠手链3", "weight": 0, "images": ["/assets/finished/爆款盘缠手链3.jpg"] },
     { "id": 6999, "zone": "finished", "category": "hands", "title": "成品-爆款盘缠手链2", "weight": 0, "images": ["/assets/finished/爆款盘缠手链2.jpg"] },
     { "id": 7001, "zone": "finished", "category": "hands", "title": "成品-爆款盘缠手链", "weight": 0, "images": ["/assets/finished/爆款盘缠手链.jpg"] },
+
+
+
+
+
+
+    { "id": 9014, "zone": "finished", "category": "ciassics", "title": "成品-金表", "weight": 0, "images": ["/assets/finished/金表12.jpg"] },
+    { "id": 9002, "zone": "finished", "category": "ciassics", "title": "成品-金表", "weight": 0, "images": ["/assets/finished/金表11.jpg"] },
+    { "id": 9003, "zone": "finished", "category": "ciassics", "title": "成品-金表", "weight": 0, "images": ["/assets/finished/金表10.jpg"] },
+    { "id": 9004, "zone": "finished", "category": "ciassics", "title": "成品-金表", "weight": 0, "images": ["/assets/finished/金表9.jpg"] },
+    { "id": 9005, "zone": "finished", "category": "ciassics", "title": "成品-金表", "weight": 0, "images": ["/assets/finished/金表8.jpg"] },
+    { "id": 9006, "zone": "finished", "category": "ciassics", "title": "成品-金表", "weight": 0, "images": ["/assets/finished/金表7.jpg"] },
+    { "id": 9007, "zone": "finished", "category": "ciassics", "title": "成品-金表", "weight": 0, "images": ["/assets/finished/金表6.jpg"] },
+    { "id": 9008, "zone": "finished", "category": "ciassics", "title": "成品-金表", "weight": 0, "images": ["/assets/finished/金表5.jpg"] },
+    { "id": 9009, "zone": "finished", "category": "ciassics", "title": "成品-金表", "weight": 0, "images": ["/assets/finished/金表4.jpg"] },
+    { "id": 9010, "zone": "finished", "category": "ciassics", "title": "成品-金表", "weight": 0, "images": ["/assets/finished/金表3.jpg"] },
+    { "id": 9011, "zone": "finished", "category": "ciassics", "title": "成品-金表", "weight": 0, "images": ["/assets/finished/金表2.jpg"] },
+    { "id": 9012, "zone": "finished", "category": "ciassics", "title": "成品-金表", "weight": 0, "images": ["/assets/finished/金表1.jpg"] },
+    { "id": 9013, "zone": "finished", "category": "ciassics", "title": "成品-金表", "weight": 0, "images": ["/assets/finished/金表.jpg"] },
+
 
     { "id": 8001, "zone": "finished", "category": "pendant", "title": "成品-吊坠", "weight": 0, "images": ["/assets/finished/457dbf20cec7edaae4b22d45e898b1ba.jpg"] }
 ]
