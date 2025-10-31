@@ -2,8 +2,6 @@
   <div 
     class="carousel"
     ref="containerEl"
-    @mouseenter="pause"
-    @mouseleave="resume"
     @touchstart.passive="onTouchStart"
     @touchmove="onTouchMove"
     @touchend.passive="onTouchEnd"
@@ -21,6 +19,9 @@
           controls 
           :poster="videoPoster(src)"
           class="carousel-video"
+          playsinline
+          webkit-playsinline
+          muted
           @click="toFullscreen($event, src)"
         />
       </div>
@@ -92,6 +93,7 @@ const isDragging = ref(false)
 const startX = ref(0)
 const deltaX = ref(0)
 let timer = null
+let videoEl = null
 
 const count = computed(() => props.images.length)
 
@@ -111,25 +113,32 @@ const containerEl = ref(null)
 
 const next = () => {
   if (count.value === 0) return
+  stopCurrentVideo()
   if (currentIndex.value < count.value - 1) {
     currentIndex.value += 1
   } else if (props.loop) {
     currentIndex.value = 0
   }
+  handleSlideEnter()
 }
 
 const prev = () => {
   if (count.value === 0) return
+  stopCurrentVideo()
   if (currentIndex.value > 0) {
     currentIndex.value -= 1
   } else if (props.loop) {
     currentIndex.value = count.value - 1
   }
+  handleSlideEnter()
 }
 
 const go = (idx) => {
   if (idx < 0 || idx >= count.value) return
+  if (idx === currentIndex.value) return
+  stopCurrentVideo()
   currentIndex.value = idx
+  handleSlideEnter()
 }
 
 const startAutoplay = () => {
@@ -137,7 +146,7 @@ const startAutoplay = () => {
   if (!props.autoplay || count.value <= 1) return
   timer = setInterval(() => {
     if (!isPaused.value) next()
-  }, Math.max(1200, props.interval))
+  }, props.interval)
 }
 
 const stopAutoplay = () => {
@@ -206,18 +215,121 @@ const onVisibility = () => {
   }
 }
 
+function getCurrentVideo() {
+  const slides = containerEl.value?.querySelectorAll('.slide')
+  const slide = slides?.[currentIndex.value]
+  if (!slide) return null
+  return slide.querySelector('video')
+}
+
+function detachVideoListeners(v) {
+  if (!v) return
+  v.removeEventListener('playing', onVideoPlaying)
+  v.removeEventListener('pause', onVideoPause)
+  v.removeEventListener('ended', onVideoEnded)
+}
+
+function stopCurrentVideo() {
+  if (videoEl) {
+    try { videoEl.pause() } catch {}
+    detachVideoListeners(videoEl)
+    videoEl = null
+  }
+}
+
+function onVideoPlaying() {
+  isPaused.value = true
+}
+function onVideoPause() {
+  // 如果不是 ended 触发的暂停，保持暂停状态由用户控制
+}
+function onVideoEnded() {
+  isPaused.value = false
+  // 结束后切到下一张
+  next()
+}
+
+async function handleSlideEnter() {
+  // 如果是视频，尝试自动播放；否则恢复正常轮播
+  const v = getCurrentVideo()
+  if (v) {
+    videoEl = v
+    v.setAttribute('playsinline', '')
+    v.setAttribute('webkit-playsinline', '')
+    v.muted = true
+    detachVideoListeners(v)
+    v.addEventListener('playing', onVideoPlaying)
+    v.addEventListener('pause', onVideoPause)
+    v.addEventListener('ended', onVideoEnded)
+    try { await v.play() } catch (e) { /* 移动端策略可能阻止，无需报错 */ }
+  } else {
+    // 图片则确保未处于强制暂停（除非预览/拖拽等）
+    if (!previewVisible.value && !isDragging.value) {
+      isPaused.value = false
+    }
+    // 重启计时器，确保严格的 3s 间隔
+    startAutoplay()
+  }
+}
+
+function onFullscreenChange() {
+  // 进入全屏时暂停，退出全屏后恢复
+  const fsEl = document.fullscreenElement || document.webkitFullscreenElement
+  if (fsEl) {
+    isPaused.value = true
+  } else {
+    if (!previewVisible.value && !isDragging.value) {
+      isPaused.value = false
+    }
+  }
+}
+
 onMounted(() => {
   containerWidth.value = containerEl.value?.clientWidth || 1
   window.addEventListener('resize', () => {
     containerWidth.value = containerEl.value?.clientWidth || 1
   })
   document.addEventListener('visibilitychange', onVisibility)
-  startAutoplay()
+  document.addEventListener('fullscreenchange', onFullscreenChange)
+  document.addEventListener('webkitfullscreenchange', onFullscreenChange)
+  // 首次进入时：根据首屏内容决定是否启动轮播
+  isPaused.value = false
+  handleSlideEnter()
+  if (!getCurrentVideo()) {
+    startAutoplay()
+  } else {
+    stopAutoplay()
+  }
 })
 
 onBeforeUnmount(() => {
   stopAutoplay()
   document.removeEventListener('visibilitychange', onVisibility)
+  document.removeEventListener('fullscreenchange', onFullscreenChange)
+  document.removeEventListener('webkitfullscreenchange', onFullscreenChange)
+  stopCurrentVideo()
+})
+
+watch(previewVisible, (v) => {
+  // 预览打开期间不轮播
+  isPaused.value = v
+})
+
+// 当 images 异步加载完成或数量变化时，初始化首屏并根据首帧类型启动/停止轮播
+watch(count, (n, o) => {
+  if (!n) return
+  if (currentIndex.value >= n) currentIndex.value = 0
+  // 如果页面隐藏，不做任何启动，待显示后再处理
+  if (document.hidden) return
+  // 初始化当前帧状态
+  handleSlideEnter()
+  // 首帧是图片则启动轮播；是视频则停止轮播（由视频驱动切换）
+  if (!getCurrentVideo()) {
+    isPaused.value = false
+    startAutoplay()
+  } else {
+    stopAutoplay()
+  }
 })
 </script>
 
