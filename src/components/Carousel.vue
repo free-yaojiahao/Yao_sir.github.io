@@ -90,6 +90,7 @@ const toFullscreen = (e, src) => {
 const currentIndex = ref(0)
 const isPaused = ref(false)
 const isDragging = ref(false)
+const inVideoMode = ref(false) // 当前帧为视频且正在播放时为 true
 const startX = ref(0)
 const deltaX = ref(0)
 let timer = null // 旧的 setInterval 计时（不再使用）
@@ -114,6 +115,7 @@ const containerEl = ref(null)
 
 const next = () => {
   if (count.value === 0) return
+  if (inVideoMode.value) return // 视频模式下禁止自动切换
   stopCurrentVideo()
   if (currentIndex.value < count.value - 1) {
     currentIndex.value += 1
@@ -125,6 +127,7 @@ const next = () => {
 
 const prev = () => {
   if (count.value === 0) return
+  if (inVideoMode.value) return
   stopCurrentVideo()
   if (currentIndex.value > 0) {
     currentIndex.value -= 1
@@ -137,6 +140,7 @@ const prev = () => {
 const go = (idx) => {
   if (idx < 0 || idx >= count.value) return
   if (idx === currentIndex.value) return
+  if (inVideoMode.value) return
   stopCurrentVideo()
   currentIndex.value = idx
   handleSlideEnter()
@@ -234,15 +238,18 @@ function stopCurrentVideo() {
     detachVideoListeners(videoEl)
     videoEl = null
   }
+  inVideoMode.value = false
 }
 
 function onVideoPlaying() {
   isPaused.value = true
+  inVideoMode.value = true
 }
 function onVideoPause() {
   // 如果不是 ended 触发的暂停，保持暂停状态由用户控制
 }
 function onVideoEnded() {
+  inVideoMode.value = false
   isPaused.value = false
   // 结束后切到下一张
   next()
@@ -256,6 +263,8 @@ async function handleSlideEnter() {
     v.setAttribute('playsinline', '')
     v.setAttribute('webkit-playsinline', '')
     v.muted = true
+    v.defaultMuted = true
+    v.volume = 0
     detachVideoListeners(v)
     v.addEventListener('playing', onVideoPlaying)
     v.addEventListener('pause', onVideoPause)
@@ -281,10 +290,10 @@ function scheduleNextImage(delay = props.interval) {
   // 仅当当前是图片且未暂停且允许自动播放时才调度
   if (!props.autoplay || count.value <= 1) return
   const v = getCurrentVideo()
-  if (v) return // 当前为视频不调度
+  if (v || inVideoMode.value) return // 当前为视频不调度
   if (isPaused.value) return
   imageTimer = setTimeout(() => {
-    if (!isPaused.value) next()
+    if (!isPaused.value && !inVideoMode.value) next()
   }, Math.max(500, delay))
 }
 
