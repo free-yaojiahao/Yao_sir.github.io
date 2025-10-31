@@ -69,11 +69,17 @@ class PreloadManager {
 
     // 设置预加载属性
     if (type === 'video') {
-      resource.preload = 'metadata'
+      // 更激进的预取，尽量把视频缓存在浏览器，缓解首播卡顿
+      resource.preload = 'auto'
       resource.muted = true
+      resource.playsInline = true
+      try { resource.setAttribute('playsinline','') } catch {}
     }
 
     resource.src = url
+    if (type === 'video' && resource.load) {
+      try { resource.load() } catch {}
+    }
   }
 
   // 预加载商品的所有资源
