@@ -35,6 +35,9 @@
         @click="go(idx)"
       />
     </div>
+    
+    <!-- 视频缓冲指示 -->
+    <div v-if="inVideoMode && isBuffering" class="buffering-indicator" aria-hidden="true"></div>
     <vue-easy-lightbox
       :visible="previewVisible"
       :imgs="images.filter(isImage)"
@@ -91,6 +94,7 @@ const currentIndex = ref(0)
 const isPaused = ref(false)
 const isDragging = ref(false)
 const inVideoMode = ref(false) // 当前帧为视频且正在播放时为 true
+const isBuffering = ref(false)
 const startX = ref(0)
 const deltaX = ref(0)
 let timer = null // 旧的 setInterval 计时（不再使用）
@@ -230,6 +234,11 @@ function detachVideoListeners(v) {
   // iOS Safari 全屏事件
   v.removeEventListener('webkitbeginfullscreen', onVideoBeginFullscreen)
   v.removeEventListener('webkitendfullscreen', onVideoEndFullscreen)
+  v.removeEventListener('waiting', onVideoWaiting)
+  v.removeEventListener('stalled', onVideoStalled)
+  v.removeEventListener('seeking', onVideoSeeking)
+  v.removeEventListener('canplay', onVideoCanPlay)
+  v.removeEventListener('playing', onVideoCanPlay)
 }
 
 function stopCurrentVideo() {
@@ -239,11 +248,14 @@ function stopCurrentVideo() {
     videoEl = null
   }
   inVideoMode.value = false
+  isBuffering.value = false
 }
 
 function onVideoPlaying() {
   isPaused.value = true
   inVideoMode.value = true
+  // 播放起来后不展示缓冲
+  isBuffering.value = false
 }
 function onVideoPause() {
   // 如果不是 ended 触发的暂停，保持暂停状态由用户控制
@@ -255,6 +267,11 @@ function onVideoEnded() {
   next()
 }
 
+function onVideoWaiting() { isBuffering.value = true }
+function onVideoStalled() { isBuffering.value = true }
+function onVideoSeeking() { isBuffering.value = true }
+function onVideoCanPlay() { isBuffering.value = false }
+
 async function handleSlideEnter() {
   // 如果是视频，尝试自动播放；否则恢复正常轮播
   const v = getCurrentVideo()
@@ -262,9 +279,12 @@ async function handleSlideEnter() {
     videoEl = v
     v.setAttribute('playsinline', '')
     v.setAttribute('webkit-playsinline', '')
-    v.muted = true
-    v.defaultMuted = true
-    v.volume = 0
+    // 默认开启声音。若自动播放失败，将回退为静音播放
+    v.muted = false
+    v.defaultMuted = false
+    v.volume = 1
+    // 为避免播放期间频繁缓冲，进入视频时将预加载调整为 auto
+    try { v.preload = 'auto' } catch {}
     detachVideoListeners(v)
     v.addEventListener('playing', onVideoPlaying)
     v.addEventListener('pause', onVideoPause)
@@ -272,9 +292,22 @@ async function handleSlideEnter() {
     // iOS Safari 全屏事件：进入全屏暂停轮播，退出后恢复
     v.addEventListener('webkitbeginfullscreen', onVideoBeginFullscreen)
     v.addEventListener('webkitendfullscreen', onVideoEndFullscreen)
+    v.addEventListener('waiting', onVideoWaiting)
+    v.addEventListener('stalled', onVideoStalled)
+    v.addEventListener('seeking', onVideoSeeking)
+    v.addEventListener('canplay', onVideoCanPlay)
+    v.addEventListener('playing', onVideoCanPlay)
     // 视频时不要图片计时器
     if (imageTimer) { clearTimeout(imageTimer); imageTimer = null }
-    try { await v.play() } catch (e) { /* 移动端策略可能阻止，无需报错 */ }
+    try { await v.play() } catch (e) {
+      // 若带声自动播放被策略阻止，则回退为静音以保证能播放
+      try {
+        v.muted = true
+        v.defaultMuted = true
+        v.volume = 0
+        await v.play()
+      } catch {}
+    }
   } else {
     // 图片则确保未处于强制暂停（除非预览/拖拽等）
     if (!previewVisible.value && !isDragging.value) {
@@ -399,5 +432,21 @@ watch(count, (n, o) => {
 @media (hover: none), (pointer: coarse){
   .nav { display: none !important; }
 }
+
+/* 缓冲指示 */
+.buffering-indicator {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  border: 3px solid rgba(255,255,255,.5);
+  border-top-color: #C89B3C;
+  border-radius: 50%;
+  animation: carousel-spin 1s linear infinite;
+  z-index: 3;
+}
+@keyframes carousel-spin { from { transform: translate(-50%, -50%) rotate(0deg) } to { transform: translate(-50%, -50%) rotate(360deg) } }
 </style>
 
