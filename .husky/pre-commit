@@ -1,9 +1,0 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-# 在提交前自动压缩图片并将生成文件加入暂存区
-echo "[pre-commit] optimizing images..."
-npm run img:optimize --silent || exit 1
-git add public/assets
-
-

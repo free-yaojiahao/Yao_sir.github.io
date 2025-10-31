@@ -24,11 +24,9 @@
         class="item-card" 
         v-for="it in paged" :key="it.id"
         @click="goDetail(it)">
-        <LazyImage 
+        <img 
           :src="it.images[0]" 
           :alt="it.title"
-          aspect-ratio="1/1"
-          root-margin="100px"
           class="thumb"
         />
         <!-- <div class="meta">
@@ -45,7 +43,6 @@
 <script setup>
 import { ref, computed, onMounted, watch, onUnmounted, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import LazyImage from '../components/LazyImage.vue'
 import { preloadManager } from '../components/PreloadManager.vue'
 // 直接从 public/gold-data.json 拉取
 
@@ -257,5 +254,3 @@ onUnmounted(() => {
   }
 }
 </style>
-
-
