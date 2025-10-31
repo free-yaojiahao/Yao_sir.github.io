@@ -92,7 +92,8 @@ const isPaused = ref(false)
 const isDragging = ref(false)
 const startX = ref(0)
 const deltaX = ref(0)
-let timer = null
+let timer = null // 旧的 setInterval 计时（不再使用）
+let imageTimer = null // 原生 setTimeout 调度图片切换
 let videoEl = null
 
 const count = computed(() => props.images.length)
@@ -142,18 +143,13 @@ const go = (idx) => {
 }
 
 const startAutoplay = () => {
-  stopAutoplay()
-  if (!props.autoplay || count.value <= 1) return
-  timer = setInterval(() => {
-    if (!isPaused.value) next()
-  }, props.interval)
+  // 兼容旧接口，不再使用 setInterval；改用 scheduleNextImage
+  scheduleNextImage()
 }
 
 const stopAutoplay = () => {
-  if (timer) {
-    clearInterval(timer)
-    timer = null
-  }
+  if (timer) { clearInterval(timer); timer = null }
+  if (imageTimer) { clearTimeout(imageTimer); imageTimer = null }
 }
 
 const pause = () => { isPaused.value = true }
@@ -267,15 +263,29 @@ async function handleSlideEnter() {
     // iOS Safari 全屏事件：进入全屏暂停轮播，退出后恢复
     v.addEventListener('webkitbeginfullscreen', onVideoBeginFullscreen)
     v.addEventListener('webkitendfullscreen', onVideoEndFullscreen)
+    // 视频时不要图片计时器
+    if (imageTimer) { clearTimeout(imageTimer); imageTimer = null }
     try { await v.play() } catch (e) { /* 移动端策略可能阻止，无需报错 */ }
   } else {
     // 图片则确保未处于强制暂停（除非预览/拖拽等）
     if (!previewVisible.value && !isDragging.value) {
       isPaused.value = false
     }
-    // 重启计时器，确保严格的 3s 间隔
-    startAutoplay()
+    // 使用最原生 setTimeout 调度下一张
+    scheduleNextImage()
   }
+}
+
+function scheduleNextImage(delay = props.interval) {
+  if (imageTimer) { clearTimeout(imageTimer); imageTimer = null }
+  // 仅当当前是图片且未暂停且允许自动播放时才调度
+  if (!props.autoplay || count.value <= 1) return
+  const v = getCurrentVideo()
+  if (v) return // 当前为视频不调度
+  if (isPaused.value) return
+  imageTimer = setTimeout(() => {
+    if (!isPaused.value) next()
+  }, Math.max(500, delay))
 }
 
 function onFullscreenChange() {
@@ -286,6 +296,7 @@ function onFullscreenChange() {
   } else {
     if (!previewVisible.value && !isDragging.value) {
       isPaused.value = false
+      scheduleNextImage()
     }
   }
 }
@@ -312,7 +323,7 @@ onMounted(() => {
   isPaused.value = false
   handleSlideEnter()
   if (!getCurrentVideo()) {
-    startAutoplay()
+    scheduleNextImage()
   } else {
     stopAutoplay()
   }
@@ -329,6 +340,7 @@ onBeforeUnmount(() => {
 watch(previewVisible, (v) => {
   // 预览打开期间不轮播
   isPaused.value = v
+  if (!v) scheduleNextImage()
 })
 
 // 当 images 异步加载完成或数量变化时，初始化首屏并根据首帧类型启动/停止轮播
@@ -342,7 +354,7 @@ watch(count, (n, o) => {
   // 首帧是图片则启动轮播；是视频则停止轮播（由视频驱动切换）
   if (!getCurrentVideo()) {
     isPaused.value = false
-    startAutoplay()
+    scheduleNextImage()
   } else {
     stopAutoplay()
   }
