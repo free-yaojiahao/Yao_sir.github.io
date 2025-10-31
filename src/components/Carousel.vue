@@ -227,6 +227,9 @@ function detachVideoListeners(v) {
   v.removeEventListener('playing', onVideoPlaying)
   v.removeEventListener('pause', onVideoPause)
   v.removeEventListener('ended', onVideoEnded)
+  // iOS Safari 全屏事件
+  v.removeEventListener('webkitbeginfullscreen', onVideoBeginFullscreen)
+  v.removeEventListener('webkitendfullscreen', onVideoEndFullscreen)
 }
 
 function stopCurrentVideo() {
@@ -261,6 +264,9 @@ async function handleSlideEnter() {
     v.addEventListener('playing', onVideoPlaying)
     v.addEventListener('pause', onVideoPause)
     v.addEventListener('ended', onVideoEnded)
+    // iOS Safari 全屏事件：进入全屏暂停轮播，退出后恢复
+    v.addEventListener('webkitbeginfullscreen', onVideoBeginFullscreen)
+    v.addEventListener('webkitendfullscreen', onVideoEndFullscreen)
     try { await v.play() } catch (e) { /* 移动端策略可能阻止，无需报错 */ }
   } else {
     // 图片则确保未处于强制暂停（除非预览/拖拽等）
@@ -281,6 +287,16 @@ function onFullscreenChange() {
     if (!previewVisible.value && !isDragging.value) {
       isPaused.value = false
     }
+  }
+}
+
+// iOS Safari 专用全屏事件
+function onVideoBeginFullscreen() {
+  isPaused.value = true
+}
+function onVideoEndFullscreen() {
+  if (!previewVisible.value && !isDragging.value) {
+    isPaused.value = false
   }
 }
 
