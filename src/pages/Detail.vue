@@ -15,6 +15,7 @@
 import { ref, onMounted } from 'vue'
 import Carousel from '../components/Carousel.vue'
 import { useRoute, useRouter } from 'vue-router'
+import { preloadManager } from '../components/PreloadManager.vue'
 
 const route = useRoute()
 const router = useRouter() // 新增
@@ -42,6 +43,15 @@ onMounted(async () => {
   zonesRef.value = data.zones || []
   const list = (data.goldItems || []).map((it, idx) => ({ id: it.id ?? (idx + 1), ...it }))
   item.value = list.find(i => String(i.id) === String(route.params.id)) || list[0] || item.value
+
+  // 预取相邻商品媒体（下一条、上一条），提高前后浏览速度
+  const idx = list.findIndex(i => String(i.id) === String(item.value.id))
+  const neighbors = []
+  if (idx >= 0) {
+    if (list[idx + 1]?.images) neighbors.push(...list[idx + 1].images)
+    if (list[idx - 1]?.images) neighbors.push(...list[idx - 1].images)
+  }
+  if (neighbors.length) preloadManager.preloadUrls(neighbors, { priority: 2 })
 })
 </script>
 

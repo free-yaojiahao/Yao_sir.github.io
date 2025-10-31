@@ -10,9 +10,28 @@ class PreloadManager {
   constructor() {
     this.cache = new Map()
     this.loading = new Set()
-    this.maxConcurrent = 3 // 最大并发预加载数量
+    this.maxConcurrent = this.computeConcurrency() // 最大并发预加载数量（网络自适应）
     this.currentLoading = 0
     this.queue = []
+    this.idle = this.getIdleCallback()
+  }
+
+  computeConcurrency() {
+    try {
+      const conn = navigator.connection || navigator.webkitConnection || navigator.mozConnection
+      if (conn?.saveData) return 1
+      const et = conn?.effectiveType || ''
+      if (et.includes('2g')) return 1
+      if (et.includes('3g')) return 2
+      return 4
+    } catch { return 3 }
+  }
+
+  getIdleCallback() {
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      return window.requestIdleCallback.bind(window)
+    }
+    return (cb) => setTimeout(() => cb({ didTimeout: false, timeRemaining: () => 1 }), 300)
   }
 
   // 预加载单个资源
@@ -46,6 +65,8 @@ class PreloadManager {
       return
     }
 
+    // 简单优先级：高优先级靠前
+    this.queue.sort((a, b) => (b.priority || 0) - (a.priority || 0))
     const { url, type, resolve, reject } = this.queue.shift()
     this.currentLoading++
     this.loading.add(url)
@@ -80,6 +101,17 @@ class PreloadManager {
     if (type === 'video' && resource.load) {
       try { resource.load() } catch {}
     }
+  }
+
+  // 批量预加载（低开销触发）
+  preloadUrls(urls = [], { typeDetector, priority = 0 } = {}) {
+    const detect = typeDetector || ((u) => (/\.(mp4|mov|webm)$/i.test(u) ? 'video' : 'image'))
+    urls.forEach((u) => {
+      if (!u) return
+      if (this.cache.has(u) || this.loading.has(u)) return
+      this.queue.push({ url: u, type: detect(u), resolve: () => {}, reject: () => {}, priority })
+    })
+    this.idle(() => this.processQueue())
   }
 
   // 预加载商品的所有资源
@@ -142,7 +174,7 @@ export default {
       document.addEventListener('visibilitychange', handleVisibilityChange)
       
       // 页面加载完成后开始预加载
-      setTimeout(startPreloading, 1000)
+      setTimeout(startPreloading, 600)
 
       return () => {
         document.removeEventListener('visibilitychange', handleVisibilityChange)

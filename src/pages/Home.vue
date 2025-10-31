@@ -176,6 +176,19 @@ function resetPage() { page.value = 1 }
 
 watch([zone, category], resetPage)
 
+// 预取“下一页”资源，提升翻页速度
+watch([page, filtered], () => {
+  const nextStart = page.value * PER_PAGE
+  const nextList = filtered.value.slice(nextStart, nextStart + PER_PAGE)
+  const urls = []
+  nextList.forEach(it => {
+    if (!it?.images) return
+    // 预取其所有详情媒体（第一张已在列表或即将展示，也一起预热缓存）
+    urls.push(...it.images)
+  })
+  if (urls.length) preloadManager.preloadUrls(urls, { priority: 1 })
+})
+
 watch(zone, z => sessionStorage.setItem(ZONE_KEY, z))
 watch(category, c => sessionStorage.setItem(CAT_KEY,c))
 

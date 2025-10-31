@@ -15,6 +15,35 @@
 
 <script setup>
 import PreloadManager from './components/PreloadManager.vue'
+import { onMounted } from 'vue'
+import { preloadManager } from './components/PreloadManager.vue'
+
+onMounted(async () => {
+  try {
+    const res = await fetch('/gold-data.json', { cache: 'force-cache' })
+    const data = await res.json()
+    const items = (data.goldItems || [])
+
+    // 全局温加载：各区前若干条的首要媒体
+    const topPerZone = 6
+    const zones = (data.zones || []).map(z => z.value)
+    const urls = []
+    zones.forEach(z => {
+      let picked = 0
+      for (const it of items) {
+        if (it.zone !== z) continue
+        if (picked >= topPerZone) break
+        if (it.images && it.images.length) {
+          urls.push(it.images[0]) // 第一媒体优先
+          // 同时轻量预取第二媒体（若存在）
+          if (it.images[1]) urls.push(it.images[1])
+          picked++
+        }
+      }
+    })
+    preloadManager.preloadUrls(urls, { priority: 1 })
+  } catch {}
+})
 </script>
 
 <style scoped>
