@@ -57,8 +57,7 @@ const props = defineProps({
   interval: { type: Number, default: 3000 },
   loop: { type: Boolean, default: true },
 })
-
-const isImage = (src) => /\.(jpe?g|png|gif|webp|svg)$/i.test(src)
+const isImage = (src) => /\.(jpe?g|png|gif|webp|svg|avif)$/i.test(src)
 const isVideo = (src) => /\.(mp4|mov|webm)$/i.test(src)
 
 const previewVisible = ref(false)
