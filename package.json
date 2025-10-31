@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "serve": "vite preview --port 4173"
+    "serve": "vite preview --port 4173",
+    "img:optimize": "node scripts/optimize-images.mjs",
+    "prebuild": "npm run img:optimize",
+    "prepare": "husky install"
   },
   "dependencies": {
     "vue": "^3.3.8",
@@ -16,8 +19,11 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.4.0",
+    "husky": "^9.0.0",
+    "sharp": "^0.34.4",
     "vite": "^4.5.0"
   },
+  
   "keywords": [
     "vue",
     "shop",

@@ -1,13 +1,17 @@
 <template>
   <div class="lazy-image-container" ref="containerRef">
-    <img 
-      v-if="isLoaded" 
-      :src="src" 
-      :alt="alt"
-      class="lazy-image"
-      @load="onImageLoad"
-      @error="onImageError"
-    />
+    <picture v-if="isLoaded">
+      <!-- 优先 AVIF / WebP 多尺寸，自适应弱网与小屏 -->
+      <source :srcset="srcset('avif')" type="image/avif" :sizes="sizesAttr" />
+      <source :srcset="srcset('webp')" type="image/webp" :sizes="sizesAttr" />
+      <img 
+        :src="src" 
+        :alt="alt"
+        class="lazy-image"
+        @load="onImageLoad"
+        @error="onImageError"
+      />
+    </picture>
     <div 
       v-else 
       class="lazy-placeholder"
@@ -35,6 +39,21 @@ const containerRef = ref(null)
 const isLoaded = ref(false)
 const isIntersecting = ref(false)
 let observer = null
+
+const sizesAttr = '(max-width: 768px) 100vw, 50vw'
+
+function buildBase(src) {
+  const i = src.lastIndexOf('.')
+  if (i === -1) return src
+  return src.slice(0, i)
+}
+
+function srcset(fmt) {
+  // 需要先运行脚本生成：xxx-w320.fmt, xxx-w480.fmt, xxx-w800.fmt, xxx-w1200.fmt
+  const base = buildBase(props.src)
+  const mapping = [320, 480, 800, 1200]
+  return mapping.map(w => `${base}-w${w}.${fmt} ${w}w`).join(', ')
+}
 
 const onImageLoad = () => {
   emit('load')
