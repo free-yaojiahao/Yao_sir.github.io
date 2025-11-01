@@ -34,7 +34,21 @@
 
     { "id": 8999, "zone": "workshop", "category": "hands", "title": "工艺-手链", "weight": 0, "images": ["/assets/finished/457dbf20cec7edaae4b22d45e898b1ba.avif"] },
 
-    { "id": 10001, "zone": "workshop", "category": "pendant", "title": "工艺-吊坠", "weight": 0, "images": ["/assets/finished/457dbf20cec7edaae4b22d45e898b1ba.avif"] },
+
+
+
+    { "id": 100024, "zone": "workshop", "category": "pendant", "title": "工艺-吊坠", "weight": 0, "images": ["/assets/workshop/黄财神.avif","/assets/workshop/黄财神2.avif"] },
+    { "id": 100023, "zone": "workshop", "category": "pendant", "title": "工艺-吊坠", "weight": 0, "images": ["/assets/workshop/锦上添花锁.avif","/assets/workshop/锦上添花锁2.avif"] },
+    { "id": 100021, "zone": "workshop", "category": "pendant", "title": "工艺-吊坠", "weight": 0, "images": ["/assets/workshop/金刚杵.avif","/assets/workshop/金刚杵2.avif"] },
+    { "id": 100020, "zone": "workshop", "category": "pendant", "title": "工艺-吊坠", "weight": 0, "images": ["/assets/workshop/貔貅.avif","/assets/workshop/貔貅2.avif"] },
+    { "id": 100019, "zone": "workshop", "category": "pendant", "title": "工艺-吊坠", "weight": 0, "images": ["/assets/workshop/花开富贵平安锁.avif","/assets/workshop/花开富贵平安锁2.avif"] },
+    { "id": 100018, "zone": "workshop", "category": "pendant", "title": "工艺-吊坠", "weight": 0, "images": ["/assets/workshop/福字镂空锁.avif","/assets/workshop/福字镂空锁2.avif"] },
+    { "id": 100017, "zone": "workshop", "category": "pendant", "title": "工艺-吊坠", "weight": 0, "images": ["/assets/workshop/平安富贵锁.avif","/assets/workshop/平安富贵锁2.avif"] },
+    { "id": 100016, "zone": "workshop", "category": "pendant", "title": "工艺-吊坠", "weight": 0, "images": ["/assets/workshop/岁岁平安.avif","/assets/workshop/岁岁平安2.avif"] },
+    { "id": 100015, "zone": "workshop", "category": "pendant", "title": "工艺-吊坠", "weight": 0, "images": ["/assets/workshop/如意福字锁.avif","/assets/workshop/如意福字锁2.avif"] },
+    { "id": 100013, "zone": "workshop", "category": "pendant", "title": "工艺-吊坠", "weight": 0, "images": ["/assets/workshop/同心莲荷花锁.avif","/assets/workshop/同心莲荷花锁2.avif"] },
+    { "id": 100012, "zone": "workshop", "category": "pendant", "title": "工艺-吊坠", "weight": 0, "images": ["/assets/workshop/八宝罗盘（转运）.avif","/assets/workshop/八宝罗盘（转运）2.avif"] },
+    { "id": 10001, "zone": "workshop", "category": "pendant", "title": "工艺-吊坠", "weight": 0, "images": ["/assets/workshop/元宝平安锁.avif","/assets/workshop/元宝平安锁2.avif"] },
     
     { "id": 3001, "zone": "finished", "category": "bracelet", "title": "成品-手链", "weight": 0, "images": ["/assets/finished/9f9a2d0facc91278f725c9e383753a22.avif"] },
   
